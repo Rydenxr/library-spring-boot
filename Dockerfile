@@ -6,12 +6,12 @@ COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 
-# Descargar dependencias
-RUN ./mvnw dependency:go-offline
+# Dar permisos y descargar dependencias
+RUN chmod +x ./mvnw && ./mvnw dependency:go-offline
 
 # Copiar código fuente y construir
 COPY src src
-RUN ./mvnw clean package -DskipTests
+RUN chmod +x ./mvnw && ./mvnw clean package -DskipTests
 
 # Etapa de ejecución
 FROM eclipse-temurin:17-jre-alpine
